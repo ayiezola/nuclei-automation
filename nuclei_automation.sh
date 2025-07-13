@@ -54,7 +54,8 @@ for SEV in "${SEVERITIES[@]}"; do
   nuclei -l "$OUTDIR/alive.txt" -etags ssl -severity "$SEV" -t ~/nuclei-templates -o "$OUTDIR/nuclei-$SEV.txt" || true
 done
 
-nuclei -l "$OUTDIR/alive.txt" -etags ssl -tags exposure -t ~/nuclei-templates -o "$OUTDIR/nuclei-exposure.txt" || true
+notify_send ":mag: Scanning \`$DOMAIN\` — Searching for exposure..."
+ nuclei -l "$OUTDIR/alive.txt" -etags ssl -tags exposure -t ~/nuclei-templates -o "$OUTDIR/nuclei-exposure.txt" || true
 notify_send ":white_check_mark: Nuclei scan completed for \`$DOMAIN\`"
 
 tmux send-keys -t "$session:0" C-c
